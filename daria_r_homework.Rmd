@@ -1,0 +1,67 @@
+---
+title: "My_Homework_Daria"
+author: Daria 
+output: html_document
+date: "2026-09-23"
+---
+
+Homework: Basic R proficiency
+
+# Load Libraries
+```{r}
+install.packages ("tidytext")
+library(tidytext)
+library(tidyverse)
+```
+
+# Import Data
+```{r}
+mob_data <- rio::import("https://raw.githubusercontent.com/wellsdata/CompText_Jour/main/data/mob_analysis_data.csv")
+```
+
+```{r}
+glimpse(mob_data)
+```
+# Count top newspapers
+```{r}
+top_newspapers <- mob_data %>%
+  count(Newspaper)
+
+```
+# A table that displays a count of the top 15 newspaper entries
+```{r}
+top_newspapers15 <-  top_newspapers %>% 
+  slice_max(n, n = 15)
+
+```
+#A table that counts the different entries in the "keyword" column
+```{r}
+keyword <- mob_data %>%
+  count(keyword, sort = TRUE) 
+```
+# A table that counts all specific articles by year
+```{r}
+article_by_year <- mob_data %>%
+  count(Year, sort = TRUE) 
+```
+#Column ggplot chart that shows the total entries by year
+```{r}
+library(ggplot2)
+ggplot(article_by_year,aes(x = Year, y = n,
+             fill = n)) +
+  geom_col(position = "dodge") + 
+  theme(legend.position = "none") +
+  labs(title = "Total Entries by Year",
+       subtitle = "Based in 3,836 extracted articles",
+       caption = "Graphic by Daria Davydova, 9-25-2026",
+       y="Articles",
+       x="Year")
+```
+
+# Analyzing Memo
+# In this research, we see how the number of entries showed explosive growth by the 1890s and reached its peak by the 1900s.
+# We can find a list of the newspapers that were more focused on lynching coverage than others. Most of them were based in different states, but Wisconsin is represented in the list more often than others - three times, to be exact. At the same time, The Birmingham Age-Herald newspaper from Birmingham, Alabama published 118 articles on lynching - more than all three Wisconsin newspapers together.
+#It’s also interesting to review the top keywords journalists used in their coverage of the lynching. The first place is given by a wide margin to the word «mob», followed by «masked», which visually gives a hint of what those lynchings looked like. Moreover, the following list includes plenty of derivatives of both words: mobs, masked men, mob’s, masks, unmasked, mobbed, mobocracy, mobient, etc. 
+#However, it’s actually unclear how those keywords were collected in the initial table. For an acute review, it would be helpful to include a description for this column. At the same time, the initial document doesn’t include the articles' headlines, which may have been analyzed as well.
+
+
