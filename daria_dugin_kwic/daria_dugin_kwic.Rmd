@@ -1,0 +1,58 @@
+---
+title: "daria_dugin_kwic"
+output: html_document
+date: "2026-10-17"
+---
+
+# Quanteda
+
+```{r}
+#install.packages("readtext")
+#install.packages("quanteda")
+library(quanteda)
+library(readtext)
+library(tidyverse)
+
+```
+
+#Import your article text dataframe
+```{r}
+articles <- read_csv("articles_df.csv")
+```
+
+
+
+```{r}
+
+# Create a corpus using the 'sentence' column as the text field
+my_corpus <- corpus(articles, text_field = "sentence") # build a new corpus from the texts
+head(my_corpus)
+
+```
+
+## kwic
+
+```{r}
+
+# Tokenize the corpus
+my_tokens <- tokens(my_corpus)
+
+# Perform KWIC (Key Word in Context) search on the tokens
+quanteda_test <- kwic(my_tokens, pattern = "fascist", valuetype = "regex") %>% 
+  as.data.frame()
+
+quanteda_test2 <- kwic(my_tokens, phrase(c("putin", "putin's brain", "fascist", "anti-fascist", "evil", "ideologue", "neo-imperialist", "conservative", "adviser", "xenophobic", "antidemocratic", "anti-Western", "mentor", "nationalist", "right", "crazy", "madman", "guru", "shadowy", "regime", "supremacist", "apologist", "mystic", "monk", "beard")), window = 50, valuetype = "regex") %>% as.data.frame() 
+
+write.csv(quanteda_test, "quanteda_test.csv")
+
+```
+
+# Memo
+
+For this assignment, I searched for keywords in context. The search was able to find most (but not all) of the keywords I prompted: "putin", "putin's brain", "fascist", "anti-fascist", "evil", "ideologue", "neo-imperialist", "conservative", "adviser", "xenophobic", "antidemocratic", "anti-Western", "mentor", "nationalist", "right", "crazy", "madman", "guru", "shadowy", "regime", "supremacist", "apologist", "mystic", "monk", "beard". Journalists often use these terms when writing about Alexander Dugin. 
+More often than others, they mentioned “putin” and “regime”, or such words as «nationalist», «adviser», and «ideologue» in the context of Dugin. They also called Dugin “Putin’s brain”. This metaphor was used 25 times in the analyzed corpus. 
+In this collection, I haven’t found such words as "mystic", "supremacist", or “madman”, even though in my previous study with a partially different database these words were used to describe Dugin. 
+However, some of the results were confusing. For example, in about a dozen cases «putin» was part of the word «Rasputin», referencing not the Russian president, but a gloomy figure of Grigory Rasputin, a 20th-century thinker and healer, who is often compared with Alexander Dugin for his influence on Russia’s rulers (and his beard).
+Another tricky prompt was “fascict”. The program was able to find both “fascist” and “anti-fascist” in the articles about Dugin. And the request “right” gave us various results: “rights” (which might reference both a political wing, human rights or situation when someone tells the truth), “far-right”, “rightly”, “right-hand”, and even “copyright”. So for the future research it will be beneficial to give more specific prompts or check coincidences after the research.
+Another important note about Dugin’s analysis is his daughter’s assassination in 2022. Some of the articles might cover mainly Darya Dugina and only touch her father superficially. This also needs to be taken into account during the search for keywords in context.
+
