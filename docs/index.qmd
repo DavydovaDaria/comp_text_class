@@ -59,6 +59,65 @@ First, create H1 headers
 
 # Income and Vacancies of Baltimore Neighborhoods 2020
 
+
+```{r}
+#install.packages("tidyverse")
+#install.packages("tidytext")
+#install.packages("janitor")
+#install.packages("readtext")
+#install.packages("quanteda")
+#install.packages("rio")
+#install.packages("striprtf")
+#install.packages("sentimentr")
+#install.packages("lexicon")
+
+library(tidyverse)
+library(tidytext) 
+library(janitor)
+library(quanteda)
+library(readtext)
+library(rio)
+library(janitor)
+library(striprtf)
+library(sentimentr)
+library(lexicon)
+```
+
+#Clean names
+```{r}
+dugin <- read_csv("articles_df.csv") |> 
+  clean_names()
+```
+
+# Polarized Terms and Putin
+```{r}
+dugin <- dugin |> 
+  mutate(
+    # Check each condition independently
+    has_putin = if_else(str_detect(sentence, regex("Putin", ignore_case = TRUE)), "Putin", NA_character_),
+    has_polar = if_else(str_detect(sentence, regex("fascist|xenophobic|anti-Western|crazy|madman|supremacist|anti-democrat", ignore_case = TRUE)), "polarized_term", NA_character_)
+  ) %>%
+  # Combine non-NA terms into a single string separated by commas
+  unite("category", has_putin, has_polar, sep = ", ", na.rm = TRUE)
+```
+
+
+## Content analysis
+```{r}
+dugin |> 
+  count(category)
+
+```
+
+```{r}
+# Create a corpus using the 'sentence' column as the text field
+my_corpus <- corpus(dugin, text_field = "sentence") # build a new corpus from the texts
+head(my_corpus)
+
+```
+
+
+
 ## Looking at wealth inequality in Charm City
 
 ```{r eval=FALSE, include=TRUE}
