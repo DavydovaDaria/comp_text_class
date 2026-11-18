@@ -108,9 +108,6 @@ dugin |>
   count(category)
 
 ```
-```{r}
-![Say no to Dugin, yes to dogs](images/iris.jpeg){width="100%"}
-```
 
 
 ## Looking at wealth inequality in Charm City
