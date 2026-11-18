@@ -170,11 +170,11 @@ income_vacancy %>%
 
 \#![Iris](images/iris.jpeg)
 
-\#![CHATTER FOR YOUR chart](images/xl-refresher-grid_SHEETS.png)
+\#![CHATTER FOR YOUR chart](images/iris3.jpeg)
 
 A more advanced technique controlling the width and height
 
-\#![Say no to Dugin, yes to dogs](images/iris.jpeg){width="100%"}
+\#![Say no to Dugin, yes to dogs](images/iris2.jpeg){width="100%"}
 
 ### Embedding code
 
