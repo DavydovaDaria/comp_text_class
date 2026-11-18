@@ -1,0 +1,8 @@
+"0","#Install Required Tools"
+"0","#Using the system() function to execute a command-line operation directly from within R."
+"0","system(""brew install tesseract"")"
+"0","system(""brew install xpdf"")"
+"0","system(""xcode-select --install"")"
+"0","system(""brew install libtiff"")"
+"0","system(""brew install ghostscript"")"
+"0","system(""brew install imagemagick"")"
