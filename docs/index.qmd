@@ -108,14 +108,9 @@ dugin |>
   count(category)
 
 ```
-
 ```{r}
-# Create a corpus using the 'sentence' column as the text field
-my_corpus <- corpus(dugin, text_field = "sentence") # build a new corpus from the texts
-head(my_corpus)
-
+![Say no to Dugin, yes to dogs](images/iris.jpeg){width="100%"}
 ```
-
 
 
 ## Looking at wealth inequality in Charm City
@@ -176,13 +171,13 @@ income_vacancy %>%
 
 -   In a QMD file, display the image as follows:
 
-\#![CAPTION FOR YOUR PHOTO](images/your_link_here.png)
+\#![Iris](images/iris.jpeg)
 
 \#![CHATTER FOR YOUR chart](images/xl-refresher-grid_SHEETS.png)
 
 A more advanced technique controlling the width and height
 
-\#![Read the Screen](images/xl-refresher-SHEETS_screen.png){width="100%"}
+\#![Say no to Dugin, yes to dogs](images/iris.jpeg){width="100%"}
 
 ### Embedding code
 
