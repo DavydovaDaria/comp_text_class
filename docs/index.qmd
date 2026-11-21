@@ -126,16 +126,14 @@ textdata <- dugin %>%
 # You will write your code in chunks but not execute the data. Use {r eval=FALSE, include=TRUE} in the header so the page will render without running the actual code.
 textdata %>% 
   ggplot(aes(x=year)) +
-  geom_point(aes(y=word_count), color = "#64D197", stroke=5) +
   geom_point(aes(y=word_count), stroke=5, color = "#FB8AE3") +
   scale_y_continuous(
-    name = "2020 Income (Green)", limits=c(0, 6000), labels=scales::dollar_format(),
-    sec.axis = sec_axis(~./6000, name="2020 Percent Vacancies (Red)", labels = scales::percent))+
+    name = "Word count", limits=c(0, 16000))+
   #scale_y_continuous(labels = scales::percent) +
   labs(
-    title = "Income and Vacancies of Baltimore Neighborhoods 2020",
-    x = "Community",
-    caption = "source: BNIA Data - By: Parker Leipzig and Rob Wells"
+    title = "Dugin Coverage by Word Count",
+    x = "Year",
+    caption = "source: Nexis Uni Data - By: Daria Davydova"
   )
 ```
 
@@ -177,13 +175,16 @@ textdata %>%
 
 -   In a QMD file, display the image as follows:
 
-\#![Aleksandr Dugin](images/dugin1.jpeg)
+Aleksandr Dugin
+\#![Aleksandr Dugin](images/dugin1.jpg)
 
-\#![Putin's Brain](images/dugin2.jpeg)
+Putin's Brain
+\#![Putin's Brain](images/dugin2.jpg)
 
 A more advanced technique controlling the width and height
 
-\#![Kremlin Ideologist](images/dugin3.jpeg){width="100%"}
+Kremlin Ideologist
+\#![Kremlin Ideologist](images/dugin3.jpg){width="100%"}
 
 ### Embedding code
 
@@ -225,7 +226,7 @@ The embed code is in the video share feature
 ```{r text_to_columns.gif, out.width="100%", echo=FALSE}
 ### Embed a GIF
 #First, download a GIF (extension will be .gif) and load it into "images" folder
-#if (knitr::is_html_output()) knitr::include_graphics("images/text_to_columns.gif")  
+#if (knitr::is_html_output()) knitr::include_graphics("images/dugin.gif")  
 
 ```
 

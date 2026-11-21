@@ -238,70 +238,78 @@ The following object is masked from 'package:sentimentr':
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>New names:
-Rows: 2757 Columns: 26
-── Column specification
-──────────────────────────────────────────────────────── Delimiter: "," chr
-(17): filename, sentence, title, publication_location, publication_4, p... dbl
-(3): ...1, length, word_count lgl (5): agg_copyright, pub_copyright, show,
-term, ticker date (1): published_date
-ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-Specify the column types or set `show_col_types = FALSE` to quiet this message.
 • `` -&gt; `...1`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 89544 Columns: 26
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (16): filename, sentence, title, publication_location, publication_4, p...
+dbl   (3): ...1, length, word_count
+lgl   (6): countries, agg_copyright, pub_copyright, show, term, ticker
+date  (1): published_date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
 </section>
 <section id="polarized-terms-and-putin" class="level1">
 <h1>Polarized Terms and Putin</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dugin <span class="ot">&lt;-</span> dugin <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check each condition independently</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_putin =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(sentence, <span class="fu">regex</span>(<span class="st">"Putin"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)), <span class="st">"Putin"</span>, <span class="cn">NA_character_</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_polar =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(sentence, <span class="fu">regex</span>(<span class="st">"fascist|xenophobic|anti-Western|crazy|madman|supremacist|anti-democrat"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)), <span class="st">"polarized_term"</span>, <span class="cn">NA_character_</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine non-NA terms into a single string separated by commas</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"category"</span>, has_putin, has_polar, <span class="at">sep =</span> <span class="st">", "</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dugin <span class="ot">&lt;-</span> dugin <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check each condition independently</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_putin =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(sentence, <span class="fu">regex</span>(<span class="st">"Putin"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)), <span class="st">"Putin"</span>, <span class="cn">NA_character_</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">has_polar =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(sentence, <span class="fu">regex</span>(<span class="st">"fascist|xenophobic|anti-Western|crazy|madman|supremacist|anti-democrat"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)), <span class="st">"polarized_term"</span>, <span class="cn">NA_character_</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Combine non-NA terms into a single string separated by commas</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"category"</span>, has_putin, has_polar, <span class="at">sep =</span> <span class="st">", "</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="content-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="content-analysis">Content analysis</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dugin <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dugin <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   category                    n
   &lt;chr&gt;                   &lt;int&gt;
-1 ""                       2523
-2 "Putin"                   214
-3 "Putin, polarized_term"     5
-4 "polarized_term"           15</code></pre>
+1 ""                      88407
+2 "Putin"                   986
+3 "Putin, polarized_term"    38
+4 "polarized_term"          113</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>textdata <span class="ot">&lt;-</span> dugin <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(filename, sentence, published_date, word_count) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">doc_id =</span> filename, <span class="at">text=</span> sentence) <span class="sc">%&gt;%</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(published_date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>textdata <span class="ot">&lt;-</span> dugin <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(filename, sentence, published_date, word_count) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">doc_id =</span> filename, <span class="at">text=</span> sentence) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(published_date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="looking-at-wealth-inequality-in-charm-city" class="level2">
 <h2 class="anchored" data-anchor-id="looking-at-wealth-inequality-in-charm-city">Looking at wealth inequality in Charm City</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You will write your code in chunks but not execute the data. Use {r eval=FALSE, include=TRUE} in the header so the page will render without running the actual code.</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>textdata <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>word_count), <span class="at">color =</span> <span class="st">"#64D197"</span>, <span class="at">stroke=</span><span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>word_count), <span class="at">stroke=</span><span class="dv">5</span>, <span class="at">color =</span> <span class="st">"#FB8AE3"</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"2020 Income (Green)"</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6000</span>), <span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">dollar_format</span>(),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">/</span><span class="dv">6000</span>, <span class="at">name=</span><span class="st">"2020 Percent Vacancies (Red)"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>percent))<span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_y_continuous(labels = scales::percent) +</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Income and Vacancies of Baltimore Neighborhoods 2020"</span>,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Community"</span>,</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"source: BNIA Data - By: Parker Leipzig and Rob Wells"</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You will write your code in chunks but not execute the data. Use {r eval=FALSE, include=TRUE} in the header so the page will render without running the actual code.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>textdata <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>word_count), <span class="at">stroke=</span><span class="dv">5</span>, <span class="at">color =</span> <span class="st">"#FB8AE3"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Word count"</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">16000</span>))<span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#scale_y_continuous(labels = scales::percent) +</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Dugin Coverage by Word Count"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"source: Nexis Uni Data - By: Daria Davydova"</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="set-up-for-hosting" class="level2">
@@ -351,10 +359,10 @@ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 <li><p>find any .jpeg, .jpg or .png file and insert it into that folder.</p></li>
 <li><p>In a QMD file, display the image as follows:</p></li>
 </ul>
-<p>#<img src="images/dugin1.jpeg" class="img-fluid" alt="Aleksandr Dugin"></p>
-<p>#<img src="images/dugin2.jpeg" class="img-fluid" alt="Putin’s Brain"></p>
+<p>Aleksandr Dugin #<img src="images/dugin1.jpg" class="img-fluid" alt="Aleksandr Dugin"></p>
+<p>Putin’s Brain #<img src="images/dugin2.jpg" class="img-fluid" alt="Putin’s Brain"></p>
 <p>A more advanced technique controlling the width and height</p>
-<p>#<img src="images/dugin3.jpeg" class="img-fluid" style="width:100.0%" alt="Kremlin Ideologist"></p>
+<p>Kremlin Ideologist #<img src="images/dugin3.jpg" class="img-fluid" style="width:100.0%" alt="Kremlin Ideologist"></p>
 <section id="embedding-code" class="level3">
 <h3 class="anchored" data-anchor-id="embedding-code">Embedding code</h3>
 <p>From a <strong>Datawrapper Map</strong></p>
