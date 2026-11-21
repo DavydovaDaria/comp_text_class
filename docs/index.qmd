@@ -188,9 +188,9 @@ Kremlin Ideologist
 
 ### Embedding code
 
-From a **Datawrapper Map**
+From a **Datawrapper**
 
-<iframe title="Small Business Reporting, Spring 2024" aria-label="Map" id="datawrapper-chart-z4bny" src="https://datawrapper.dwcdn.net/z4bny/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="500" data-external="1">
+<iframe title="Mentions of civilian casualties in state-aligned media" aria-label="Map" id="datawrapper-chart-z4bny" src="https://datawrapper.dwcdn.net/Rd4sm/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="500" data-external="1">
 
 </iframe>
 
@@ -226,7 +226,7 @@ The embed code is in the video share feature
 ```{r text_to_columns.gif, out.width="100%", echo=FALSE}
 ### Embed a GIF
 #First, download a GIF (extension will be .gif) and load it into "images" folder
-#if (knitr::is_html_output()) knitr::include_graphics("images/dugin.gif")  
+if (knitr::is_html_output()) knitr::include_graphics("images/dugin.gif")
 
 ```
 
