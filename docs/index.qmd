@@ -177,13 +177,13 @@ textdata %>%
 
 -   In a QMD file, display the image as follows:
 
-\#![Iris](images/iris.jpeg)
+\#![Aleksandr Dugin](images/dugin1.jpeg)
 
-\#![CHATTER FOR YOUR chart](images/iris3.jpeg)
+\#![Putin's Brain](images/dugin2.jpeg)
 
 A more advanced technique controlling the width and height
 
-\#![Say no to Dugin, yes to dogs](images/iris2.jpeg){width="100%"}
+\#![Kremlin Ideologist](images/dugin3.jpeg){width="100%"}
 
 ### Embedding code
 
@@ -203,7 +203,7 @@ From a **Datawrapper Map**
 ### Deep Nerd Video
 
 ::: {#first_steps}
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Du7fOoW_euE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Du7fOoW_euE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 
 </iframe>
 :::
@@ -211,7 +211,7 @@ From a **Datawrapper Map**
 ::: {#second_steps}
 ### A great lecture on structural racism in journalism
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=Du7fOoW_euE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Vic6xXveDx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 
 </iframe>
 :::
